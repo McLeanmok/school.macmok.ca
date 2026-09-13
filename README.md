@@ -1,0 +1,74 @@
+# ChampCSS Astro Theme
+
+An [Astro](https://astro.build) starter theme built on top of **ChampCSS**, with production CSS purging handled by [`astro-purgecss`](https://www.npmjs.com/package/astro-purgecss).
+
+> Part of the ChampCSS ecosystem — see [`champ-css`](https://github.com/McLeanmok/champcss) for the standalone CLI/framework this theme is styled with.
+
+## Features
+
+- ⚡️ **Astro 5** — fast, content-focused static site generation
+- 🎨 **ChampCSS** styling out of the box
+- 🧹 **Automatic CSS purging** via `astro-purgecss` for lean production builds
+- 🧩 Minimal, unopinionated starting point you can build a full site on top of
+
+## Prerequisites
+
+- [Node.js](https://nodejs.org/) 18+ (LTS recommended)
+- npm (or your package manager of choice — pnpm/yarn should work too)
+
+## Getting Started
+
+Clone the repo and install dependencies:
+
+\`\`\`bash
+git clone https://github.com/McLeanmok/ChampCSS-Astro-Theme-.git
+cd ChampCSS-Astro-Theme-
+npm install
+\`\`\`
+
+Start the dev server:
+
+\`\`\`bash
+npm run dev
+\`\`\`
+
+Your site will be available at `http://localhost:4321`.
+
+## Available Scripts
+
+| Command | Action |
+| --- | --- |
+| `npm run dev` | Starts the local dev server |
+| `npm run build` | Builds the production site to `./dist/` (CSS is purged automatically) |
+| `npm run preview` | Previews the production build locally |
+| `npm run astro ...` | Runs any Astro CLI command, e.g. `npm run astro add` |
+
+## Project Structure
+
+\`\`\`text
+/
+├── public/          # Static assets served as-is
+├── src/             # Pages, layouts, components, and styles
+├── .vscode/         # Editor settings
+├── astro.config.mjs # Astro configuration (incl. astro-purgecss)
+├── tsconfig.json    # TypeScript configuration
+└── package.json
+\`\`\`
+
+Astro looks for `.astro`/`.md` files in `src/pages/` to generate routes — see the [Astro docs](https://docs.astro.build/en/basics/project-structure/) if you're new to the framework.
+
+## Building for Production
+
+\`\`\`bash
+npm run build
+\`\`\`
+
+`astro-purgecss` strips unused ChampCSS classes from the final build, keeping the shipped CSS footprint small.
+
+## Contributing
+
+Issues and pull requests are welcome. If you spot a bug or have an idea for an improvement, feel free to open one.
+
+## License
+
+_Add your license here (e.g. MIT)._
