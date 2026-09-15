@@ -1,12 +1,48 @@
 ---
 import Container from "../components/container.astro";
 import MainTemplate from "../templates/main-template.astro";
+import Intro from "../components/intro/index.astro"
+
+// loop
+import processLabs from "../data/processing-labs.json";
 ---
 <!-- customize this page to your projects requirements. This is simply a starting point  -->
-<MainTemplate title="ChampCSS Astro Theme" description="A starter theme for Astro using ChampCSS" author="Major Digital Projects" keywords={["Astro", "ChampCSS", "Starter Theme"]}>
-	<section>
-		<Container >
-			<h1>ChampCSS Astro Theme</h1>
-			</Container>	
+<MainTemplate title="Mac Mylymok School Portfolio " description="A simple portfolio website for all my school projects" author="McLean Mylymok" keywords={["school", "portfolio", "bms"]}>
+	<section class="hero">
+		<Container customClass="hero__inner">
+			<Intro 
+			blockName="hero"
+			hasEyebrow={false}
+			marketingHeading="My School Projects"
+			lede="This is a simple website where I will post all my school projects."
+			/>
+			</Container>
 	</section> 
+		<!-- 3D -->
+			 <section class="class-section photo" id="threedee">
+				<Container customClass="class-section__inner" smartSpacing>
+					<h2 class="class-section__heading">3D Animation</h2>
+					<p>No labs here yet!</p>
+				</Container>
+			 </section>
+			 <!-- processing  -->
+			  <section class="class-section processing" id="processing">
+				<Container customClass="class-section__inner" smartSpacing>
+					<h2 class="class-section__heading">Creative Coding</h2>
+					<ul class="class-section__lab-list">
+						{
+							processLabs.map((lab) => (
+								<li class="lab-list__item"><a href={lab.href} class="lab-list__link">{lab.title}</a></li>
+							))
+						}
+					</ul>
+				</Container>
+			  </section>
+			  <!-- Photography -->
+			    <section class="class-section photo" id="photo">
+				<Container customClass="class-section__inner" smartSpacing>
+					<h2 class="class-section__heading">Photography</h2>
+					<p>No labs here yet!</p>
+				</Container>
+			 </section>
 </MainTemplate>

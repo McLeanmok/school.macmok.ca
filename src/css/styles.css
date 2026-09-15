@@ -1,0 +1,31 @@
+/* home */
+/* hero */
+.hero {
+  background: var(--primary-ultra-light);
+}
+
+/* class section + lab list */
+.class-section__inner {
+  display: grid;
+  gap: var(--gap-lg);
+}
+
+.class-section__lab-list {
+  display: grid;
+  gap: var(--gap-md);
+}
+
+.lab-list__link {
+  display: inline-block;
+  transition: var(--btn-animation);
+}
+
+.lab-list__link:hover,
+.lab-list__link:focus-visible {
+  background-color: var(--site-color);
+  color: var(--white);
+}
+.site-wordmark {
+  font-size: var(--fs-h6);
+  font-weight: var(--fw-ultrabold);
+}

@@ -17,7 +17,6 @@
   
 */
 /* Importing Google font - you really want to swap this out to suit your needs. I would strongly recommend using @font-face and load the fonts in locally, I'm using the CDN just for the sake of convenience */
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
 /* Varibles */
 :root {
   /* =====

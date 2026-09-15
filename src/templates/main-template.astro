@@ -21,13 +21,13 @@ const { title, description, author, keywords, noCta = false , noHeader = false, 
 	<body>
         <a href="#main" class="skip">Skip to Main content</a>
         <a href="#footer" class="skip">Skip to footer</a>
-        {!noHeader && <Header hasCta/>}
+        {!noHeader && <Header/>}
     <main id="main">
         <slot />
         <!-- {!noCta && <CtaParksville /> } -->
        
     </main>
-        <Footer hasCards>
+        <Footer>
             <!-- Put content into the right side with the "slot="right"" attribute -->
         </Footer>
 	</body>
