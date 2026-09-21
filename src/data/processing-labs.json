@@ -6,5 +6,17 @@
     {
         "title": "Point Drawing",
         "href": "/labs/processing/point_drawing.jpg"
+    },
+    {
+        "title": "Line",
+        "href": "/labs/processing/line/"
+    },
+    {
+        "title": "Point",
+        "href": "/labs/processing/point/"
+    },
+    {
+        "title": "Point Take Home",
+        "href": "/labs/processing/point-take-home/"
     }
 ]

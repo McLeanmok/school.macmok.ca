@@ -1,0 +1,46 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+canvas {
+  display: block;
+  overflow: hidden;
+}
+body {
+  display: grid;
+  grid-template-columns: minmax(18rem, 1fr) minmax(0, 900px);
+  align-items: start;
+}
+a {
+  display: inline;
+}
+.notes {
+  padding: 2rem;
+  grid-column: 1;
+}
+
+main {
+  grid-column: 2;
+}
+
+canvas {
+  max-width: 100%;
+  height: auto;
+}
+
+@media (max-width: 900px) {
+  body {
+    grid-template-columns: 1fr;
+  }
+
+  main {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .notes {
+    grid-row: 2;
+  }
+}
