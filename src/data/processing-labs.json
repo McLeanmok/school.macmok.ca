@@ -26,5 +26,13 @@
     {
         "title": "Program Control + The Line That Went for a Walk",
         "href": "/labs/processing/program-control/"
+    },
+    {
+        "title": "Arrays and Geometry",
+        "href": "/labs/processing/arrays/"
+    },
+    {
+        "title": "Colour Examples",
+        "href": "/labs/processing/colour-examples.pdf"
     }
 ]

@@ -1,0 +1,163 @@
+LAB NOTES: beginShape(), noise(), and building a circle with a for loop
+MDST 110 - Week 3 (Kandinsky's three planes sketch)
+
+====================================================================
+1. beginShape() / vertex() / endShape()
+====================================================================
+
+What it does
+  Lets you draw a custom shape one point at a time instead of using a
+  built-in like ellipse() or rect(). Processing connects the points in
+  the order you give them.
+
+Basic pattern
+  beginShape();
+  vertex(x1, y1);
+  vertex(x2, y2);
+  vertex(x3, y3);
+  endShape(CLOSE);
+
+Key points
+  - Every shape needs beginShape() first and endShape() last.
+  - vertex() adds one corner. The order matters: swapping two vertices
+    changes (or tangles) the outline.
+  - endShape() with no argument leaves the shape OPEN: the last point
+    is not joined back to the first. endShape(CLOSE) draws that final
+    edge so the outline is closed.
+  - fill() and stroke() are read when the shape is finished, so set
+    them BEFORE beginShape() (or at least before endShape()).
+  - noFill() gives an outline only; fill(color) gives a solid shape.
+
+Uses in the sketch
+  - Displaced geometric plane: seven vertices at deliberately uneven
+    distances from the centre. Straight edges + irregular angles =
+    "geometric but displaced".
+  - Free plane: hundreds of tiny vertices (see section 3), which reads
+    as a smooth curve.
+
+Tip: to make a polygon move or scale as a unit, write each vertex as an
+offset from a centre point, e.g. vertex(cx + s * 0.4, cy - s * 0.7).
+Then changing cx, cy or s moves the whole shape.
+
+====================================================================
+2. noise()
+====================================================================
+
+What it does
+  Returns a smooth pseudo-random number between 0 and 1 for the input
+  you give it. Unlike random(), nearby inputs give nearby outputs, so
+  the values change gradually and look organic instead of jittery.
+
+Forms
+  noise(x)          1D: a smooth line of values
+  noise(x, y)       2D: a smooth surface of values
+  noise(x, y, z)    3D: a surface that can also change over time (z)
+
+Key points
+  - Output is always 0 to 1 (and tends to cluster near 0.5). Scale and
+    shift it yourself: 0.5 + 1.2 * noise(...) gives about 0.5 to 1.7.
+  - The INPUT step size controls how rough the result is.
+      small steps (0.01 - 0.05)  = smooth, slow changes
+      large steps (0.5 and up)   = looks like random()
+  - The same input always returns the same output within one run, so
+    to animate you must change the input over time.
+
+Animating with a noise offset
+  float noiseOffset = 0;        // declared at the top, outside draw()
+
+  void draw() {
+    noiseOffset += 0.02;        // advance a little every frame
+    ... noise(nx, ny, noiseOffset) ...
+  }
+
+  - The offset must be a global so it keeps its value between frames.
+  - Larger increment = faster change. 0.02 gives a slow drift.
+  - If the offset was reset to 0 inside draw(), nothing would animate.
+
+random() vs noise()
+  random()  every value is independent -> jagged, flickering
+  noise()   each value is related to its neighbours -> smooth, flowing
+
+====================================================================
+3. Constructing a circle with a for loop
+====================================================================
+
+The idea
+  A circle is the set of points at a fixed distance (radius) from the
+  centre. Walk around by angle a from 0 to TWO_PI (a full turn) and
+  place a point at each angle:
+
+      x = cx + cos(a) * r
+      y = cy + sin(a) * r
+
+  cos(a) gives the horizontal part and sin(a) the vertical part of a
+  point on a circle of radius 1. Multiplying by r scales it up, and
+  adding cx, cy moves it to the centre.
+
+Code
+  beginShape();
+  for (float a = 0; a < TWO_PI; a += 0.05) {
+    vertex(cx + cos(a) * r, cy + sin(a) * r);
+  }
+  endShape(CLOSE);
+
+Key points
+  - Angles are in radians. TWO_PI is about 6.28 = 360 degrees.
+  - The step (0.05) sets how many points are used. Roughly
+    TWO_PI / 0.05 = about 126 points. Smaller step = smoother circle,
+    bigger step = visible straight edges.
+      step = TWO_PI / 3  gives a triangle
+      step = TWO_PI / 6  gives a hexagon
+    This shows a "circle" is just a polygon with a lot of sides.
+  - The for loop variable can be a float. Using "a < TWO_PI" (not <=)
+    stops before repeating the starting point.
+  - Use endShape(CLOSE) so the last point joins back to the first.
+
+Turning the circle into the free plane
+  Instead of a fixed radius, let the radius change with the angle:
+
+      float r = s * (0.5 + 1.2 * noise(nx, ny, noiseOffset));
+      vertex(cx + cos(a) * r, cy + sin(a) * r);
+
+  - Each point now sits at a slightly different distance from the
+    centre, which bumps the outline in and out.
+  - Closing the loop: noise(a) alone would not match at a = 0 and
+    a = TWO_PI, leaving a seam. Feeding noise the point on a unit
+    circle instead,
+        nx = cos(a) + 1;  ny = sin(a) + 1;
+    means a = 0 and a = TWO_PI give identical input, so the outline
+    joins up smoothly. The + 1 keeps the inputs positive.
+  - The third argument (noiseOffset) moves through a third noise
+    dimension over time, so the whole boundary shifts smoothly.
+
+Tweaking the look
+  - Bumpiness: change the 1.2 multiplier (bigger = more extreme).
+  - Base size: change the 0.5 (the minimum radius fraction).
+  - Wobble scale: multiply nx, ny, e.g. noise(nx * 2, ny * 2, ...)
+    for more lumps around the edge.
+  - Smoothness of the line: smaller angle step.
+  - Speed: size of the noiseOffset increment.
+
+====================================================================
+Bonus: alternating implied / active with frameCount
+====================================================================
+
+  boolean active = frameCount % 120 >= 60;
+
+  - frameCount counts frames since the sketch started (60 per second
+    by default).
+  - % 120 wraps it back to 0 every 120 frames (2 seconds), giving a
+    repeating 0..119 cycle.
+  - Comparing against 60 splits the cycle into two equal halves:
+    first 60 frames = false (implied, noFill), last 60 = true (active,
+    fill).
+  - if (active) { fill(...); } else { noFill(); }
+
+Common mistakes to watch for
+  - Forgetting endShape(), so nothing draws.
+  - Setting fill() after endShape(), so the colour doesn't apply.
+  - Declaring noiseOffset inside draw(), so it resets every frame.
+  - Using degrees in cos()/sin(). Processing expects radians
+    (use radians(deg) to convert).
+  - Using random() where noise() was intended, giving a flickery
+    outline instead of a smooth one.
