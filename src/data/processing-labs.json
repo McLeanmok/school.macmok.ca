@@ -42,5 +42,9 @@
     {
         "title": "Composition Class Activity",
         "href": "/labs/processing/composition-class.pdf"
+    },
+    {
+        "title": "Transforms",
+        "url":"/labs/processing/transforms"
     }
 ]
