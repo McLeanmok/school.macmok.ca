@@ -1,6 +1,6 @@
 # build output
 dist/
-!public/labs/processing/transforms/dist/
+!public/labs/processing/radio-boy/dist/
 # generated types
 .astro/
 
