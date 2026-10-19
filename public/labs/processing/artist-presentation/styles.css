@@ -1,0 +1,41 @@
+:root {
+	--r-link-color: oklch(64.2% 0.173 37.3);
+	--r-link-color-hover: oklch(79.75% 0.10119 37.384);
+	--r-heading-color: oklch(64.2% 0.173 37.3);
+	--fs-h1: clamp(2.206rem, 1.165vw + 1.833rem, 3.4247rem);
+	--fs-h2: clamp(2.207rem, 1.164vw + 1.834rem, 3.4247rem);
+	--fs-h3: clamp(2.207rem, 0.651vw + 1.999rem, 2.8868rem);
+	--fs-p: clamp(1rem, 0.299vw + 0.904rem, 1.3125rem);
+}
+
+.grid {
+	display: grid;
+	gap: 1rem;
+	/* putting it in a row on desktop  */
+	@media (width> 740px) {
+		grid-template-columns: repeat(2, 1fr);
+
+		&.grid--reverse > figure {
+			grid-column: 2;
+			grid-row: 1;
+		}
+
+		&.grid--reverse > ul {
+			grid-column: 1;
+			grid-row: 1;
+		}
+	}
+}
+a {
+	max-inline-size: 40ch;
+}
+/* custom font sizes */
+.reveal h1 {
+	font-size: var(--fs-h1);
+}
+.reveal h2 {
+	font-size: var(--fs-h2);
+}
+.reveal p {
+  font-size: var(--fs-p)
+}
